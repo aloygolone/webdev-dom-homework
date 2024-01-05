@@ -1,7 +1,6 @@
 import { objOfConst } from "./constant.js";
 import { disabledFunction } from "./disable.js"; 
 import { fetchPostAndErrors } from "./api.js";
-import { regexp } from "./constant.js";
 
 // Добавление нового комментария с валидацией
 

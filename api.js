@@ -1,7 +1,6 @@
 import { objOfConst } from "./constant.js";
 import { timeFunction } from "./date.js";
 import { renderComments } from "./render.js";
-import { addCommentByClick, addCommentByEnter } from "./add.comments.js";
 import { disabledFunction } from "./disable.js";
 
 // Принимаем с сервера комментарии
