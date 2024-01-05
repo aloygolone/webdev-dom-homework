@@ -9,10 +9,7 @@ import { disabledFunction } from "./disable.js";
 export function getComments() {
     return fetch("https://wedev-api.sky.pro/api/v1/eugene-alyoshin/comments", {
         method: "GET",
-    })
-    .then((response) => {
-        return response.json();
-    })
+    });
 }
 
 // Передаем новые комментарии на сервер
@@ -36,31 +33,29 @@ export function postComments() {
 // Функция первого рендера страницы
 
 export function fetchAndRender() {
-    return getComments()
-    .then((responseData) => {
-      objOfConst.comments = responseData.comments.map((comment) => {
-        return {
-          name: comment.author.name,
-          date: timeFunction(comment.date),
-          text: comment.text,
-          likes: comment.likes,
-          isLiked: comment.isLiked,
-        };
-      });
-      return renderComments();
-    })
-    .then(() => {
-      return addCommentByClick();
-    })
-    .then(() => {
-      return addCommentByEnter();
+  return getComments()
+  .then((response) => {
+    return response.json();
+  })
+  .then((responseData) => {
+    objOfConst.comments = responseData.comments.map((comment) => {
+      return {
+        name: comment.author.name,
+        date: timeFunction(comment.date),
+        text: comment.text,
+        likes: comment.likes,
+        isLiked: comment.isLiked,
+      };
     });
+    return renderComments();
+  })
   }
 
 // Функция добавления комментария на сервер и проверки на ошибки
 
 export function fetchPostAndErrors() {
-    return postComments().then((response) => {
+    return postComments()
+    .then((response) => {
   
       if (response.status === 500) {
         throw new Error("Ошибка сервера");
@@ -68,7 +63,8 @@ export function fetchPostAndErrors() {
         throw new Error("Неверный запрос");
       } else {
         return response.json();
-      } 
+      }
+      
     })
     .then(() => {
       return fetchAndRender();

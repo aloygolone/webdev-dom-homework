@@ -1,6 +1,7 @@
 import { objOfConst } from "./constant.js";
 import { disabledFunction } from "./disable.js"; 
 import { fetchPostAndErrors } from "./api.js";
+import { regexp } from "./constant.js";
 
 // Добавление нового комментария с валидацией
 
@@ -14,14 +15,14 @@ export function addCommentByClick() {
   
     objOfConst.nameInputElement.addEventListener("click", clearInput);
     objOfConst.commentInputElement.addEventListener("click", clearInput);
-  
-    if (objOfConst.nameInputElement.value === "") {
+ 
+    if (objOfConst.nameInputElement.value === "" || regexp) {
       objOfConst.nameInputElement.classList.add("error");
       objOfConst.buttonElement.disabled = true;
       return;
     }
   
-    if (objOfConst.commentInputElement.value === "") {
+    if (objOfConst.commentInputElement.value === "" || regexp) {
       objOfConst.commentInputElement.classList.add("error");
       objOfConst.buttonElement.disabled = true;
       return (objOfConst.commentInputElement.value = "");
