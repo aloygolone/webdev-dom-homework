@@ -15,13 +15,13 @@ export function addCommentByClick() {
     objOfConst.nameInputElement.addEventListener("click", clearInput);
     objOfConst.commentInputElement.addEventListener("click", clearInput);
  
-    if (objOfConst.nameInputElement.value === "" || regexp) {
+    if (objOfConst.nameInputElement.value.trim() === "" && " ") {
       objOfConst.nameInputElement.classList.add("error");
       objOfConst.buttonElement.disabled = true;
       return;
     }
   
-    if (objOfConst.commentInputElement.value === "" || regexp) {
+    if (objOfConst.commentInputElement.value.trim() === "" && " ") {
       objOfConst.commentInputElement.classList.add("error");
       objOfConst.buttonElement.disabled = true;
       return (objOfConst.commentInputElement.value = "");
