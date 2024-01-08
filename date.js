@@ -1,4 +1,4 @@
-export function timeFunction(date) {
+export const timeFunction = (date) => {
 let time = new Date(date);
 let commentDate = time.getDate();
 let commentMonth = time.getMonth() + 1;

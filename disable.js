@@ -1,7 +1,10 @@
 import { objOfConst } from "./constant.js";
 
 export function disabledFunction(boolean) {
-    objOfConst.buttonElement.disabled = boolean;
-    objOfConst.nameInputElement.disabled = boolean;
-    objOfConst.commentInputElement.disabled = boolean;
+    const buttonElement = document.getElementById("add-button");
+    const nameInputElement = document.getElementById("name-input");
+    const commentInputElement = document.getElementById("comment-input");
+    buttonElement.disabled = boolean;
+    nameInputElement.disabled = boolean;
+    commentInputElement.disabled = boolean;
   }
