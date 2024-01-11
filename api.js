@@ -1,96 +1,62 @@
-import { objOfConst } from "./constant.js";
+import { comments, setComments, listElement, addFormElement, loginFormElement, noLoginElement, host, hostUserList, hostUserLogin, token, setToken} from "./vars.js";
 import { timeFunction } from "./date.js";
-import { renderComments } from "./render.js";
-import { disabledFunction } from "./disable.js";
 
-// Принимаем с сервера комментарии
+// // API авторизация
 
-export function getComments() {
-    return fetch("https://wedev-api.sky.pro/api/v1/eugene-alyoshin/comments", {
-        method: "GET",
-    });
-}
+// const getUserList = () => {
+//     return fetch(hostUserList, {
+//         method: "GET",
+//     });
+// }
 
-// Передаем новые комментарии на сервер
+// const registration = () => {
+//     return fetch(hostUserList, {
+//         method: "POST",
+//     });
+// }
 
-export function postComments() {
-    return fetch("https://wedev-api.sky.pro/api/v1/eugene-alyoshin/comments", {
+// Получаем список комментариев с сервера
+
+export const getComments = () => {
+  return fetch(host, {
+      method: "GET",
+  });
+};
+
+// Отправляем логин-пароль на сервер
+
+export const postLogIn = ({login, password}) => {
+  return fetch(hostUserLogin, {
       method: "POST",
       body: JSON.stringify(
-        {
-            text: objOfConst.commentInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-            name: objOfConst.nameInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-            date: timeFunction(),
-            likes: objOfConst.comments.likes,
-            isLiked: objOfConst.comments.isLiked,
-            forceError: true,
-        },
-      ),
-    })
+          {
+              login,
+              password,
+          },
+        ),
+  });
 }
 
-// Функция первого рендера страницы
+// Функция передачи написанного комментария на сервер
 
-export function fetchAndRender() {
-  return getComments()
-  .then((response) => {
-    return response.json();
-  })
-  .then((responseData) => {
-    objOfConst.comments = responseData.comments.map((comment) => {
-      return {
-        name: comment.author.name,
-        date: timeFunction(comment.date),
-        text: comment.text,
-        likes: comment.likes,
-        isLiked: comment.isLiked,
-      };
+export const postComments = ({ token, comments, commentInputElement, nameInputElement }) => {
+    return fetch(host, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(
+        {
+          login: comments.login,
+          id: comments.id,
+          text: commentInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          name: nameInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          date: timeFunction(),
+          likes: comments.likes,
+          isLiked: comments.isLiked,
+          forceError: true,
+        },
+      ),
     });
-    return renderComments();
-  })
-  }
+};
 
-// Функция добавления комментария на сервер и проверки на ошибки
-
-export function fetchPostAndErrors() {
-    return postComments()
-    .then((response) => {
-  
-      if (response.status === 500) {
-        throw new Error("Ошибка сервера");
-      } else if (response.status === 400) {
-        throw new Error("Неверный запрос");
-      } else {
-        return response.json();
-      }
-      
-    })
-    .then(() => {
-      return fetchAndRender();
-    })
-    .then(() => {
-      return disabledFunction(false);
-    })
-    .then(() => {
-      objOfConst.nameInputElement.value = "";
-      objOfConst.commentInputElement.value = "";
-    })
-    .catch((error) => {
-      disabledFunction(false);
-      objOfConst.addingText.style.opacity = "0";
-      if (error.message === "Ошибка сервера") {
-        alert("Сервер сломался, попробуйте позже");
-        console.warn("Код ошибки - 500");
-        return;
-      } else if (error.message === "Неверный запрос") {
-        alert("Имя и комментарий должны быть не короче 3х символов");
-        console.warn("Код ошибки - 400");
-        return;
-      } else {
-        alert("Кажется, у Вас проблемы с интернетом");
-        console.warn("Нет сети");
-        return;
-      }
-
-    });
-  };
