@@ -1,5 +1,5 @@
-import { renderLoginForm, renderNoLogin, renderAddForm } from "./htmlForms.js"
-import { comments, setComments, listElement, addFormElement, loginFormElement, noLoginElement, host, hostUserList, hostUserLogin, token, setToken } from "./vars.js";
+import { renderLoginForm, renderNoLogin } from "./htmlForms.js"
+import { comments, addFormElement, loginFormElement, setToken } from "./vars.js";
 import { postLogIn } from "./api.js";
 import { addCommentByClick } from "./commentApp.js";
 

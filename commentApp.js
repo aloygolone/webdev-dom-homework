@@ -1,5 +1,5 @@
 import { postComments } from "./api.js";
-import { renderAddForm, renderComments } from "./htmlForms.js";
+import { renderAddForm } from "./htmlForms.js";
 import { fetchAndRender } from "./renderApp.js";
 import { token,comments } from "./vars.js";
 
