@@ -1,4 +1,4 @@
-import { comments, setComments, listElement, addFormElement, loginFormElement, noLoginElement, host, hostUserList, hostUserLogin, token, setToken} from "./vars.js";
+import { host, hostUserLogin } from "./vars.js";
 import { timeFunction } from "./date.js";
 
 // // API авторизация

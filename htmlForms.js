@@ -1,4 +1,4 @@
-import { comments, setComments, listElement, addFormElement, loginFormElement, noLoginElement, host, hostUserList, hostUserLogin, token, setToken } from "./vars.js";
+import { comments, listElement, addFormElement, loginFormElement, noLoginElement } from "./vars.js";
 
 // 1 Функция рендера комментариев в Html
 
